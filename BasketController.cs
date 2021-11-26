@@ -7,22 +7,27 @@ public class BasketController : MonoBehaviour
     public AudioClip appleSE;
     public AudioClip bombSE;
     AudioSource aud;
+    GameObject director;
+
+    void Start()
+    {
+        this.aud = GetComponent<AudioSource>();
+        this.director = GameObject.Find("GameDirector");
+    }
 
     void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Apple"){
-            Debug.Log("キャッチ！");
+            // Debug.Log("キャッチ！");
+            this.director.GetComponent<GameDirector>().GetApple();
             this.aud.PlayOneShot(this.appleSE);
         }else{
-            Debug.Log("アウト！");
+            // Debug.Log("アウト！");
+            this.director.GetComponent<GameDirector>().GetBomb();
             this.aud.PlayOneShot(this.bombSE);
         }
         Destroy(other.gameObject);
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        this.aud = GetComponent<AudioSource>();
-    }
 
     // Update is called once per frame
     void Update()
