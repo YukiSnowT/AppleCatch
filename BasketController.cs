@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class BasketController : MonoBehaviour
 {
+    public AudioClip appleSE;
+    public AudioClip bombSE;
+    AudioSource aud;
+
     void OnTriggerEnter(Collider other) {
-        Debug.Log("キャッチ！");
+        if(other.gameObject.tag == "Apple"){
+            Debug.Log("キャッチ！");
+            this.aud.PlayOneShot(this.appleSE);
+        }else{
+            Debug.Log("アウト！");
+            this.aud.PlayOneShot(this.bombSE);
+        }
         Destroy(other.gameObject);
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.aud = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
